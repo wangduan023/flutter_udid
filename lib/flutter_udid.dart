@@ -23,8 +23,8 @@ class FlutterUdid {
     return udid;
   }
 
-  static Future<String> get saveNewUdid async {
-    final String udid = await _channel.invokeMethod('saveNewUDID');
+  static Future<String> saveNewUdid(String udid) async {
+    final String udid = await _channel.invokeMethod('saveNewUDID', udid);
     return udid;
   }
 }
