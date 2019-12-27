@@ -17,4 +17,14 @@ class FlutterUdid {
     var digest = sha256.convert(bytes);
     return digest.toString();
   }
+
+  static Future<String> get newUdid async {
+    final String udid = await _channel.invokeMethod('getNewUDID');
+    return udid;
+  }
+
+  static Future<String> get saveNewUdid async {
+    final String udid = await _channel.invokeMethod('saveNewUDID');
+    return udid;
+  }
 }
