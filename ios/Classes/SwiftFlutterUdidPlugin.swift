@@ -14,34 +14,34 @@ public class SwiftFlutterUdidPlugin: NSObject, FlutterPlugin {
         self.getUniqueDeviceIdentifierAsString(result: result);
     }
     else if("saveNewUDID"==call.method){
-        self.saveUDID(result: result,udid : call.arguments[0])
+        self.saveUDID(result: result, udid : call.arguments as! String)
     }
     else if("getNewUDID"==call.method){
-        self.saveNewUDID(result: result)
+        self.getNewUDID(result: result)
     }
     else{
         result(FlutterMethodNotImplemented);
     }
   }
 
-    private func saveUDID(result: FlutterResult, String udid){
+    private func saveUDID(result: FlutterResult, udid: String){
             let query = SAMKeychainQuery()
             query.service = "####service####"
             query.account = "####account####"
             query.password = udid
             query.synchronizationMode = SAMKeychainQuerySynchronizationMode.no
-            let res = "OK"
+            var res = "OK"
             do {
                 try query.save()
             } catch let error as NSError {
-                res= "KO"
+                res = "KO"
                 print("SAMKeychainQuery Exception: \(error)")
             }
             result(res)
     }
 
     private func getNewUDID(result: FlutterResult){
-         var applicationUUID = SAMKeychain.password(forService: "####service####", account: "####account####")
+        var applicationUUID = SAMKeychain.password(forService: "####service####", account: "####account####")
         
         if applicationUUID == nil {
             result("")
